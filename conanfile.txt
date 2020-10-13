@@ -1,0 +1,12 @@
+ [requires]
+ gtest/1.10.0
+ sfml/2.5.1@bincrafters/stable 
+
+ [options]
+sfml:graphics=True
+sfml:window=True
+sfml:audio=False
+sfml:network=False
+
+ [generators]
+ cmake
