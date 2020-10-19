@@ -1,1 +1,1 @@
-#include "inc/Board.hpp"
+#include "../inc/Board.hpp"
