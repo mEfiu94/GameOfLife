@@ -4,7 +4,6 @@
 #include "BoardTest.hpp"
 int main(int argc, char *argv[]) {
     ::testing::InitGoogleTest(&argc, argv);
-    std::cout<<"TEST MAIN FILE"<<std::endl;
-    
+    std::cout<<"TEST MAIN FILE"<<std::endl;    
     return RUN_ALL_TESTS();
 }

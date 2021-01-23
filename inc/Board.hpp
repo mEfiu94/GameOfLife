@@ -6,8 +6,7 @@ class Board
 {
 public:
     explicit Board(unsigned int width, unsigned int height) noexcept: board_{sf::Vector2f(width,height)}{}; 
-    sf::Vector2u getSize() const;
-    void display(sf::RenderWindow&);
+    sf::Vector2u getSize() const;    
 private:    
     sf::RectangleShape board_;
 };

@@ -17,22 +17,3 @@ TEST_F(BoardTest, ShouldReturnBoardSizeWhereXIsWidthAndYIsHeight)
     ASSERT_NEAR(plansza.getSize().y, y, 0.00001);
 }
 
-TEST_F(BoardTest, ShouldShowWindowWithGivenSize)
-{
-    unsigned int x = 200;
-    unsigned int y = 200;
-    sf::Vector2u size{x, y};
-    Board plansza{x, y};
-    sf::RenderWindow window(sf::VideoMode(plansza.getSize().x, plansza.getSize().y), "GameOfLife",sf::Style::Titlebar | sf::Style::Close);
-    sf::Event event;
-    ASSERT_EQ(window.getSize(),size);
-    while (window.isOpen())
-    {       
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-        plansza.display(window);
-    }
-}
