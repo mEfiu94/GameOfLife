@@ -6,3 +6,6 @@ sf::Vector2u Board::getSize() const{
     boardUnsignedSize.y=board_.getSize().y;
     return boardUnsignedSize;
 } 
+const std::vector<Entity>& Board::GetElements() const{
+    return entities_;
+}
