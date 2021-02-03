@@ -1,15 +1,21 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <iostream>
 #include "../inc/Entity.hpp"
+using boardMatrix=std::vector<std::vector<Entity>>;
 class Board
 {
 public:
-    explicit Board(unsigned int width, unsigned int height) noexcept: board_{sf::Vector2f(width,height)},
-                                                                        entities_(static_cast<size_t>(width*height),StateOfEntity::Dead){}; 
+    explicit Board(unsigned int width, unsigned int height) noexcept: 
+        board_{sf::Vector2f(width,height)},
+        entities_(height,std::vector<Entity>(static_cast<size_t>(width),StateOfEntity::Dead)){}; 
+
     sf::Vector2u getSize() const;
-    const std::vector<Entity>& GetElements() const;    
+    const boardMatrix& GetElements() const;   
+    const StateOfEntity GetStateAt(unsigned int x, unsigned int y) const;
+    void SetStateAt(unsigned int x, unsigned int y, StateOfEntity state);
 private:    
-    std::vector<Entity> entities_;
+    boardMatrix entities_;
     sf::RectangleShape board_;
 };
