@@ -1,51 +1,35 @@
-cmake_minimum_required(VERSION 3.10)
-project(GameOfLife)
-set(CMAKE_CXX_STANDARD 17)
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
-
-SET(cmake_build_type debug)
-file(GLOB_RECURSE MY_APP_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
-add_library(my_app_src ${MY_APP_SRC})
-target_include_directories(my_app_src PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-add_executable(GameOfLife ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
-target_link_libraries(GameOfLife ${CONAN_LIBS})
-
-# Download and unpack googletest at configure time
-configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
-execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-  RESULT_VARIABLE result
-  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
-if(result)
-  message(FATAL_ERROR "CMake step for googletest failed: ${result}")
+cmake_minimum_required(VERSION 3.0.0)
+project(GameOfLife VERSION 0.1.0 LANGUAGES CXX)
+#EXECUTABLE SETUP
+#
+add_executable(Game src/main.cpp)
+set_target_properties(Game PROPERTIES
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
+)
+target_sources(Game PRIVATE src/Board.cpp src/Entity.cpp)
+target_include_directories(Game PUBLIC inc)
+target_link_libraries(Game PUBLIC sfml-graphics sfml-window sfml-system)
+target_compile_features(Game PRIVATE cxx_std_20)
+target_compile_options(Game PRIVATE -Wall -Wextra -Wpedantic)
+#TESTING SETUP
+#
+option(PACKAGE_TESTS "Build the tests" ON)
+if(PACKAGE_TESTS)
+    enable_testing()
+    include(GoogleTest)
+    add_subdirectory(uts)
+    add_executable(tests uts/tests.cpp)    
+    set_target_properties(tests PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED YES
+        CXX_EXTENSIONS NO
+    )
+    target_sources(tests PRIVATE src/Board.cpp src/Entity.cpp)
+    target_link_libraries(tests gtest gmock gtest_main sfml-graphics sfml-window sfml-system)
+    target_compile_features(tests PRIVATE cxx_std_20)
+    target_compile_options(tests PRIVATE -Wall -Wextra -Wpedantic)
+    gtest_discover_tests(tests)
+    add_test(UT, tests)
 endif()
-execute_process(COMMAND ${CMAKE_COMMAND} --build .
-  RESULT_VARIABLE result
-  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
-if(result)
-  message(FATAL_ERROR "Build step for googletest failed: ${result}")
-endif()
-
-# Prevent overriding the parent project's compiler/linker
-# settings on Windows
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-
-# Add googletest directly to our build. This defines
-# the gtest and gtest_main targets.
-add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
-                 ${CMAKE_CURRENT_BINARY_DIR}/googletest-build
-                 EXCLUDE_FROM_ALL)
-
-# The gtest/gtest_main targets carry header search path
-# dependencies automatically when using CMake 2.8.11 or
-# later. Otherwise we have to add them here ourselves.
-if (CMAKE_VERSION VERSION_LESS 2.8.11)
-  include_directories("${gtest_SOURCE_DIR}/include")
-endif()
-
-
-file(GLOB_RECURSE MY_APP_TEST_SRC ${CMAKE_CURRENT_SOURCE_DIR}/uts/*.cpp)
-add_executable(unit-tests ${MY_APP_TEST_SRC})
-target_link_libraries(unit-tests my_app_src)
-target_link_libraries(unit-tests ${CONAN_LIBS} gtest_main)
