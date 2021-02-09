@@ -8,12 +8,12 @@ class Board
 {
 public:
     explicit Board(unsigned int width, unsigned int height) noexcept: 
-        board_{sf::Vector2f(width,height)},
-        entities_(height,std::vector<Entity>(static_cast<size_t>(width),StateOfEntity::Dead)){}; 
+        entities_(height,std::vector<Entity>(static_cast<size_t>(width),StateOfEntity::Dead)),
+        board_{sf::Vector2f(width,height)}{}; 
 
     sf::Vector2u getSize() const;
     const boardMatrix& GetElements() const;   
-    const StateOfEntity GetStateAt(unsigned int x, unsigned int y) const;
+    StateOfEntity GetStateAt(unsigned int x, unsigned int y) const;
     void SetStateAt(unsigned int x, unsigned int y, StateOfEntity state);
 private:    
     boardMatrix entities_;

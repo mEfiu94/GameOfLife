@@ -9,7 +9,7 @@ sf::Vector2u Board::getSize() const{
 const boardMatrix& Board::GetElements() const{
     return entities_;
 }
-const StateOfEntity Board::GetStateAt(unsigned int x, unsigned int y) const{
+StateOfEntity Board::GetStateAt(unsigned int x, unsigned int y) const{
     StateOfEntity actualState=StateOfEntity::Dead;
     try
     {
