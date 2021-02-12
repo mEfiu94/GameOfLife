@@ -7,7 +7,9 @@ set_target_properties(Game PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED YES
     CXX_EXTENSIONS NO
+    CXX_CLANG_TIDY "clang-tidy;-header-filter=.;-checks=cppcoreguidelines-*"
 )
+
 target_sources(Game PRIVATE src/Board.cpp src/Entity.cpp)
 target_include_directories(Game PUBLIC inc)
 target_link_libraries(Game PUBLIC sfml-graphics sfml-window sfml-system)
