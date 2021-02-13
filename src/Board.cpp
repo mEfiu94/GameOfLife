@@ -27,3 +27,15 @@ void Board::SetStateAt(unsigned int x, unsigned int y, StateOfEntity state) {
         "Coordinates are larger than board size in Board::SetState()");
   }
 }
+void Board::InvertStateAt(unsigned int x, unsigned int y) {
+  try {
+    if (entities_.at(x).at(y).getState() == StateOfEntity::Dead)
+      SetStateAt(x, y, StateOfEntity::Alive);
+    else
+      SetStateAt(x, y, StateOfEntity::Dead);
+  } catch (std::out_of_range const& e) {
+    std::cerr << e.what() << '\n';
+    throw std::out_of_range(
+        "Coordinates are larger than board size in Board::InvertState()");
+  }
+}
