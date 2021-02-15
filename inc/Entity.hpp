@@ -5,11 +5,10 @@ enum StateOfEntity {
 };
 class Entity {
  public:
-  Entity(StateOfEntity birthState) : state_{birthState} {};
-  StateOfEntity getState() const { return state_; };
+  explicit Entity(StateOfEntity birthState) : state_{birthState} {};
+  [[nodiscard]] StateOfEntity getState() const { return state_; };
   void setState(StateOfEntity newState) { state_ = newState; };
   bool operator==(const Entity b) const { return getState() == b.getState(); }
-
  private:
   StateOfEntity state_;
 };
