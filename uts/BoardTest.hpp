@@ -21,7 +21,7 @@ TEST_F(BoardTest, ShouldReturnBoardSizeWhereXIsWidthAndYIsHeight) {
 }
 TEST_F(BoardTest, ShouldReturnVectorOfEntities) {
   const boardMatrix entities(
-      10, std::vector<Entity>(20, Entity(StateOfEntity::Dead)));
+      10, std::vector<Entity>(20, Entity(StateOfEntity::Dead,0,0)));
   EXPECT_EQ(TestBoard.GetElements(), entities);
 }
 TEST_F(BoardTest, ShouldReturnDeadStateOfEntityAtSpecifiedCoordinates) {
