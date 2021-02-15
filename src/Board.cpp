@@ -2,8 +2,8 @@
 
 sf::Vector2u Board::getSize() const {
   sf::Vector2u boardUnsignedSize(0, 0);
-  boardUnsignedSize.x = board_.getSize().x;
-  boardUnsignedSize.y = board_.getSize().y;
+  boardUnsignedSize.x = width_;
+  boardUnsignedSize.y = height_;
   return boardUnsignedSize;
 }
 const boardMatrix& Board::GetElements() const { return entities_; }
