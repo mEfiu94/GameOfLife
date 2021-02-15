@@ -1,13 +1,12 @@
 #include "../inc/Renderer.hpp"
 
-Renderer::Renderer(Board& board) {
+Renderer::Renderer(std::shared_ptr<Board>& board):boardPtr_(board){
   mainWindow_.create(
-      sf::VideoMode(board.getSize().x * 10, board.getSize().y * 10),
-      "GameOfLife", sf::Style::Close);
-  boardPtr_ = std::make_unique<Board>(board);
+      sf::VideoMode(board->getSize().x * 10, board->getSize().y * 10),
+      "GameOfLife", sf::Style::Close);  
   mainWindow_.setFramerateLimit(60);
-  for (size_t i = 0; i < (board.getSize().x); i++)
-    for (size_t j = 0; j < (board.getSize().y); j++) {
+  for (size_t i = 0; i < (board->getSize().x); i++)
+    for (size_t j = 0; j < (board->getSize().y); j++) {
       auto shape = sf::RectangleShape(sf::Vector2f(10.0f, 10.0f));
       shape.setFillColor(sf::Color::White);
       shape.setOutlineColor(sf::Color::Black);
@@ -25,7 +24,7 @@ void Renderer::updateRectangles() {
       } else {
         iter->setFillColor(sf::Color::White);
       }
-      iter->setOutlineColor(sf::Color::White);
+      iter->setOutlineColor(sf::Color(84,84,84));
       if (iter <= std::end(entitiesShapeVector_))
         ++iter;
       else
@@ -40,7 +39,7 @@ void Renderer::showWindow() {
     }
     mainWindow_.clear(sf::Color::Black);
     updateRectangles();
-    for (auto elem : entitiesShapeVector_) mainWindow_.draw(elem);
+    for (auto& elem : entitiesShapeVector_) mainWindow_.draw(elem);
     mainWindow_.display();
   }
 }
