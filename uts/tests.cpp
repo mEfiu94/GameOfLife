@@ -4,6 +4,7 @@
 #include <SFML/Window.hpp>
 
 #include "BoardTest.hpp"
+#include "WorldTest.hpp"
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   std::cout << "TEST MAIN FILE" << std::endl;
