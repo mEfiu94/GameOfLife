@@ -1,9 +1,11 @@
 #include "../inc/Renderer.hpp"
 
-Renderer::Renderer(std::shared_ptr<Board>& board):boardPtr_(board){
+#include <chrono>
+#include <thread>
+Renderer::Renderer(std::shared_ptr<Board>& board) : boardPtr_(board) {
   mainWindow_.create(
       sf::VideoMode(board->getSize().x * 10, board->getSize().y * 10),
-      "GameOfLife", sf::Style::Close);  
+      "GameOfLife", sf::Style::Close);
   mainWindow_.setFramerateLimit(60);
   for (size_t i = 0; i < (board->getSize().x); i++)
     for (size_t j = 0; j < (board->getSize().y); j++) {
@@ -24,7 +26,7 @@ void Renderer::updateRectangles() {
       } else {
         iter->setFillColor(sf::Color::White);
       }
-      iter->setOutlineColor(sf::Color(84,84,84));
+      iter->setOutlineColor(sf::Color(84, 84, 84));
       if (iter <= std::end(entitiesShapeVector_))
         ++iter;
       else
@@ -38,7 +40,10 @@ void Renderer::showWindow() {
       if (event.type == sf::Event::Closed) mainWindow_.close();
     }
     mainWindow_.clear(sf::Color::Black);
+    GameWorld_.EvaluateBoard();
     updateRectangles();
+    using namespace std::chrono_literals;
+    std::this_thread::sleep_for(10ms);
     for (auto& elem : entitiesShapeVector_) mainWindow_.draw(elem);
     mainWindow_.display();
   }
