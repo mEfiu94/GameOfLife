@@ -14,11 +14,11 @@ target_sources(Game PRIVATE src/World.cpp src/Renderer.cpp src/Board.cpp src/Ent
 target_include_directories(Game PUBLIC inc)
 target_link_libraries(Game PUBLIC sfml-graphics sfml-window sfml-system)
 target_compile_features(Game PRIVATE cxx_std_20)
-target_compile_options(Game PRIVATE -Wall -Wextra -Wpedantic)
+target_compile_options(Game PRIVATE -g3 -Wall -Wextra -Wpedantic)
 #TESTING SETUP
 #
 option(PACKAGE_TESTS "Build the tests" ON)
-if(PACKAGE_TESTS)
+if(PACKAGE_TESTS)    
     enable_testing()
     include(GoogleTest)
     add_subdirectory(uts)
