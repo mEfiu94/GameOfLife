@@ -1,6 +1,14 @@
 # GameOfLife
-Basic approach to a cellular automata called Conway's Game of Life. More to come.
+Basic approach to a cellular automata called Conway's Game of Life using TDD approach.
 https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+
+### Tools used
+* GoogleTest Framework
+* SFML
+* GCC 9.3
+* GDB
+* CMake
+* Clang-tidy, Clang-format
 
 **Working version preview** - first population is generated from uniform distrubtion across the board
 
