@@ -43,7 +43,7 @@ void Renderer::showWindow() {
     GameWorld_.EvaluateBoard();
     updateRectangles();
     using namespace std::chrono_literals;
-    std::this_thread::sleep_for(10ms);
+    std::this_thread::sleep_for(50ms);
     for (auto& elem : entitiesShapeVector_) mainWindow_.draw(elem);
     mainWindow_.display();
   }
