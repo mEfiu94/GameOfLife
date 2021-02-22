@@ -12,7 +12,7 @@ class Entity {
       : state_{birthState}, x{x_new}, y{y_new} {};
   [[nodiscard]] StateOfEntity getState() const { return state_; };
   void setState(StateOfEntity newState) { state_ = newState; };
-  bool operator==(const Entity b) const { return getState() == b.getState(); }
+  bool operator==(const Entity b) const { return (getState() == b.getState() && b.x==x && b.y==y); }
   std::pair<unsigned int, unsigned int> getCoordinates()const;
 
  private:
