@@ -20,9 +20,17 @@ TEST_F(BoardTest, ShouldReturnBoardSizeWhereXIsWidthAndYIsHeight) {
   ASSERT_NEAR(plansza.getSize().y, y, 0.00001);
 }
 TEST_F(BoardTest, ShouldReturnVectorOfEntities) {
-  const boardMatrix entities(
-      10, std::vector<Entity>(20, Entity(StateOfEntity::Dead,0,0)));
-  EXPECT_EQ(TestBoard.GetElements(), entities);
+  boardMatrix entities(
+      20, std::vector<Entity>(10, Entity(StateOfEntity::Dead, 0, 0)));
+  for (int i = 0; i < 20; i++) {
+    for (int j = 0; j < 10; j++) {
+      entities[i][j] = (Entity(StateOfEntity::Dead, j, i));
+      EXPECT_EQ(TestBoard.GetElements().at(j).at(i).getState(),
+                entities[i][j].getState());
+      EXPECT_EQ(TestBoard.GetElements().at(j).at(i).getCoordinates(),
+                entities[i][j].getCoordinates());
+    }
+  }
 }
 TEST_F(BoardTest, ShouldReturnDeadStateOfEntityAtSpecifiedCoordinates) {
   auto actualState = TestBoard.GetStateAt(1u, 1u);
