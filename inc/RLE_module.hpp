@@ -14,4 +14,5 @@ class RLE_module {
  private:
   unsigned int width = 0, height = 0;
   std::ifstream FileToRead_;
+  void ParseCharacter(const std::string, std::vector<Entity>& final_vector) const;
 };
