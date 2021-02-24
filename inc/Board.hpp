@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "../inc/Entity.hpp"
+#include "../inc/RLE_module.hpp"
 using boardMatrix = std::vector<std::vector<Entity>>;
 class Board {
  public:
@@ -16,7 +17,7 @@ class Board {
       entities_.push_back(temp);
     }
   };
-
+  void AddPattern(const std::unique_ptr<RLE_module>&,unsigned int, unsigned int);
   [[nodiscard]] sf::Vector2u getSize() const;
   [[nodiscard]] const boardMatrix& GetElements() const;
   [[nodiscard]] StateOfEntity GetStateAt(unsigned int x, unsigned int y) const;

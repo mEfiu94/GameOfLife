@@ -5,20 +5,14 @@
 
 #include "../inc/Renderer.hpp"
 #include "../inc/World.hpp"
+#include "../inc/RLE_module.hpp"
 int main() {
-  auto BoardPtr = std::make_shared<Board>(75, 75);
+  auto BoardPtr = std::make_shared<Board>(120, 120);
   World TestWorld(BoardPtr);
   Renderer Render(BoardPtr);
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_int_distribution<> distrib(0, 74);
-  std::uniform_int_distribution<> distrib2(0, 1);
-  for (int i = 0; i <= 74*74; i++) {
-    if (distrib2(gen))
-      BoardPtr->SetStateAt(distrib(gen), distrib(gen), StateOfEntity::Alive);
-    else
-      BoardPtr->SetStateAt(distrib(gen), distrib(gen), StateOfEntity::Dead);
-  }
+  auto modulePtr = std::make_unique<RLE_module>();
+  modulePtr->open("GosperGliderGun.rle");
+  BoardPtr->AddPattern(modulePtr,20,50);
   Render.showWindow();
   return 0;
 }

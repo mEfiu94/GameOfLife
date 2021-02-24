@@ -1,6 +1,6 @@
 #pragma once
 #include "../inc/Board.hpp"
-
+#include "../inc/RLE_module.hpp"
 class BoardTest : public ::testing::Test {
  protected:
   Board TestBoard = Board{10u, 20u};
@@ -50,4 +50,19 @@ TEST_F(BoardTest, ShouldThrowAnExceptionWhenSettingOutOfRange) {
   EXPECT_THROW(TestBoard.SetStateAt(10, 9, StateOfEntity::Alive),
                std::out_of_range);
   EXPECT_NO_THROW(TestBoard.SetStateAt(9, 9, StateOfEntity::Alive));
+}
+TEST_F(BoardTest, ShoudlAddPatternToBoard){  
+  auto modulePointer=std::make_unique<RLE_module>();
+  modulePointer->open("Glider.rle");
+  TestBoard.AddPattern(modulePointer,1,1);
+  std::vector<Entity> test_vector;
+  test_vector.push_back(Entity(StateOfEntity::Dead, 1, 1));
+  test_vector.push_back(Entity(StateOfEntity::Alive, 2, 1));
+  test_vector.push_back(Entity(StateOfEntity::Dead, 1, 2));
+  test_vector.push_back(Entity(StateOfEntity::Dead, 2, 2));
+  test_vector.push_back(Entity(StateOfEntity::Alive, 3, 2));
+  test_vector.push_back(Entity(StateOfEntity::Alive, 1, 3));
+  test_vector.push_back(Entity(StateOfEntity::Alive, 2, 3));
+  test_vector.push_back(Entity(StateOfEntity::Alive, 3, 3));
+  
 }

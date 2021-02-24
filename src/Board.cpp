@@ -39,3 +39,23 @@ void Board::InvertStateAt(unsigned int x, unsigned int y) {
         "Coordinates are larger than board size in Board::InvertState()");
   }
 }
+
+void Board::AddPattern(const std::unique_ptr<RLE_module>& modulePtr,
+                       unsigned int x, unsigned int y) {
+  auto vec = modulePtr->parse();
+  for (auto entity : vec) {
+    Entity movedEntity(entity.getState(), entity.getCoordinates().first + x,
+                       entity.getCoordinates().second + y);
+    for (auto& vector : entities_) {
+      std::replace_if(
+          vector.begin(), vector.end(),
+          [&](auto& elem) {
+            return elem.getCoordinates().first ==
+                       movedEntity.getCoordinates().first and
+                   elem.getCoordinates().second ==
+                       movedEntity.getCoordinates().second;
+          },
+          movedEntity);
+    }
+  }
+}
