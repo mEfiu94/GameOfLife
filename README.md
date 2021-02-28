@@ -15,4 +15,4 @@ https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 <img src="https://i.giphy.com/media/uCJo4pHn4aFsxsMQpf/giphy.webp" width="300">
 
 **Extra functionalities**
-` provides inserting patterns from .rle file format https://conwaylife.com/wiki/Run_Length_Encoded
+- provides inserting cell patterns from .rle file format https://conwaylife.com/wiki/Run_Length_Encoded
