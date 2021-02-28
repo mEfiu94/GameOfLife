@@ -10,9 +10,10 @@ https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 * CMake
 * Clang-tidy, Clang-format
 
-**Working version preview** - first population is generated from uniform distrubtion across the board
+**Working version preview** 
+- first population is generated from uniform distrubtion across the board
 
-<img src="https://i.giphy.com/media/uCJo4pHn4aFsxsMQpf/giphy.webp" width="300">
+<img src="https://i.giphy.com/media/uCJo4pHn4aFsxsMQpf/giphy.webp" width="300"/>
 
 **Extra functionalities**
 - provides inserting cell patterns from .rle file format https://conwaylife.com/wiki/Run_Length_Encoded
